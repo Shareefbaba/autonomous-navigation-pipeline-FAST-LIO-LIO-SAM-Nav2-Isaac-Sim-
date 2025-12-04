@@ -1,0 +1,11 @@
+<root main_tree_to_execute="MainTree">
+  <BehaviorTree ID="MainTree">
+    <Sequence name="simple_navigate">
+      <!-- 1) Compute a path to the goal -->
+      <ComputePathToPose goal="{goal}" path="{path}"/>
+
+      <!-- 2) Follow that path -->
+      <FollowPath path="{path}"/>
+    </Sequence>
+  </BehaviorTree>
+</root>

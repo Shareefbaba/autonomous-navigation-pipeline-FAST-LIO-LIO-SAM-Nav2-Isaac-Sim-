@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<package format="3">
+  <name>fast_lio_nav2</name>
+  <version>0.0.1</version>
+  <description>Integration of Nav2 with FAST-LIO odometry + pointcloud data.</description>
+
+  <maintainer email="your-email@example.com">shareef</maintainer>
+  <license>MIT</license>
+
+  <!-- Build tool -->
+  <buildtool_depend>ament_python</buildtool_depend>
+
+  <!-- Needed runtime dependencies -->
+  <exec_depend>rclpy</exec_depend>
+  <exec_depend>nav2_bringup</exec_depend>
+  <exec_depend>geometry_msgs</exec_depend>
+  <exec_depend>sensor_msgs</exec_depend>
+  <exec_depend>nav_msgs</exec_depend>
+  <exec_depend>tf2_ros</exec_depend>
+  <exec_depend>std_msgs</exec_depend>
+
+  <export>
+    <build_type>ament_python</build_type>
+  </export>
+</package>

@@ -1,0 +1,62 @@
+fastlio_mapping:
+  ros__parameters:
+    use_sim_time: true
+
+    # ==================== CORE ====================
+    feature_extract_enable: false
+    point_filter_num: 3
+    max_iteration: 3
+    filter_size_surf: 0.5
+    filter_size_map: 0.5
+    cube_side_length: 1000.0
+    runtime_pos_log_enable: false
+    map_file_path: "./test.pcd"
+
+    # ==================== FRAMES (MATCH ROBOT + LIO-SAM) ====================
+    lidarFrame:      "sensor"      # LiDAR frame
+    baselinkFrame:   "base_link"   # robot body frame
+    odometryFrame:   "odom"        # odom frame
+    mapFrame:        "map"         # (only used if fast_lio publishes map)
+
+    # ==================== TOPICS ====================
+    common:
+      lid_topic: "/points_with_ring"        # your point cloud
+      imu_topic: "/chassis/imu"  # IMU (same as LIO-SAM yaml)
+      time_sync_en: false
+      time_offset_lidar_to_imu: 0.0
+
+    # ==================== PREPROCESS (LiDAR) ====================
+    preprocess:
+      lidar_type: 2          # 2 = Velodyne-style
+      scan_line: 32          # keep same as your old FAST-LIO config
+      blind: 4.0
+
+    # ==================== MAPPING / IMU / EXTRINSICS ====================
+    mapping:
+      acc_cov: 0.1
+      gyr_cov: 0.1
+      b_acc_cov: 0.0001
+      b_gyr_cov: 0.0001
+      fov_degree: 90.0
+      det_range: 450.0
+
+      # IMU<->LiDAR extrinsics (LiDAR pose in IMU frame)
+      extrinsic_est_en: false
+      extrinsic_T: [0.0, 0.0, 0.0]
+      extrinsic_R: [ 1.0, 0.0, 0.0,
+                     0.0, 1.0, 0.0,
+                     0.0, 0.0, 1.0 ]
+
+    # simple gravity param (like LIO-SAM idea)
+    imuGravity: 9.81
+
+    # ==================== PUBLISH / SAVE ====================
+    publish:
+      path_en: false
+      scan_publish_en:  true
+      dense_publish_en: true
+      scan_bodyframe_pub_en: true
+
+    pcd_save:
+      pcd_save_en: true
+      interval: -1

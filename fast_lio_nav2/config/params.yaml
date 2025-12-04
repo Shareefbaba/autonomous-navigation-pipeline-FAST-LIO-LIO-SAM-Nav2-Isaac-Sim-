@@ -1,0 +1,117 @@
+/**:
+  ros__parameters:
+    use_sim_time: true
+
+    # ==================== TOPICS ====================
+    # LiDAR point cloud with x,y,z,ring,time
+    pointCloudTopic: "/points_with_ring"
+
+    # 9-axis IMU from Isaac
+    imuTopic:        "/chassis/imu"
+
+    # LIO-SAM odom output (IMU preintegration)
+    odomTopic:       "chassis/odom"
+
+    # GPS (unused for now, but keep defaults)
+    gpsTopic:        "/fix"
+    gpsOdomTopic:    "/gps_odom"
+
+    # ==================== FRAMES ====================
+    # /points_with_ring --> frame_id: sensor
+    lidarFrame:      "sensor"
+    baselinkFrame:   "base_link"
+    odometryFrame:   "odom"
+    mapFrame:        "map"
+
+    # ==================== GPS SETTINGS ====================
+    useImuHeadingInitialization: false
+    useGpsElevation:             false
+    gpsCovThreshold:             2.0
+    poseCovThreshold:            25.0
+
+    # ==================== EXPORT SETTINGS ====================
+    savePCD:          false
+    savePCDDirectory: "/home/shareef/Downloads/LOAM/"
+
+    # ==================== LIDAR / SENSOR SETTINGS ====================
+    sensor:           robosense
+    N_SCAN:           128          # vertical channels (your fake ring)
+    Horizon_SCAN:     2161       # matches width from /points_with_ring echo
+    downsampleRate:   1
+    lidarMinRange:    1.5
+    lidarMaxRange:    1000.0
+
+    # ==================== IMU SETTINGS ====================
+    # Your IMU shows:
+    #   linear_accel z ≈ 9.81
+    #   small noise on x,y
+    # These values are reasonable starting points.
+    imuAccNoise:      0.000001        # m/s^2 white noise
+    imuGyrNoise:      0.000001       # rad/s white noise
+    imuAccBiasN:      0.00000001
+    imuGyrBiasN:      0.00000001
+    imuGravity:       9.81        # match PhysicsScene gravity magnitude
+    imuRPYWeight:     0.01
+
+    # ==================== EXTRINSICS (LiDAR <-> IMU) ====================
+    # For now we keep things SIMPLE and assume LiDAR and IMU frames
+    # are aligned (REP105) and almost co-located. This removes a lot of
+    # confusion while you debug the system.
+    #
+    # Later, if you really want, we can plug in the exact offset from
+    # tf2_echo Imu_Sensor sensor, but first make SLAM stable.
+
+    # Translation from LiDAR to IMU (meters) – approx. co-located
+    # IMU -> LiDAR (imu_link to lidar_link)
+
+    extrinsicTrans: [-0.23, 0.04, 0.24]   # approx from tf2_echo
+
+    extrinsicRot:   [ 1.0, 0.0, 0.0,             # rotation matrix ≈ identity
+                      0.0, 1.0, 0.0,
+                      00, 0.0, 1.0 ]
+
+    extrinsicRPY:   [ 0.0, 0.0, 0.0 ]       # roll, pitch, yaw (IMU axes already aligned)
+
+                       
+
+    # (When everything is stable we can change extrinsicTrans/Rot/RPY
+    #  to the exact LiDAR–IMU transform you measured.)
+
+    # ==================== LOAM FEATURE THRESHOLDS ====================
+    edgeThreshold:             0.2
+    surfThreshold:             0.01
+    edgeFeatureMinValidNum:    5
+    surfFeatureMinValidNum:    10
+
+    # ==================== VOXEL FILTER PARAMS ====================
+    odometrySurfLeafSize:      0.4
+    mappingCornerLeafSize:     0.2
+    mappingSurfLeafSize:       0.4
+
+    # ==================== ROBOT MOTION CONSTRAINT ====================
+    z_tollerance:              0.2      # small because robot is on flat floor
+    rotation_tollerance:       0.2
+
+    # ==================== CPU PARAMS ====================
+    numberOfCores:             16
+    mappingProcessInterval:    0.15
+
+    # ==================== SURROUNDING MAP ====================
+    surroundingkeyframeAddingDistThreshold:   0.5
+    surroundingkeyframeAddingAngleThreshold:  0.2
+    surroundingKeyframeDensity:              2.0
+    surroundingKeyframeSearchRadius:         50.0
+
+    # ==================== LOOP CLOSURE ====================
+    loopClosureEnableFlag:      true
+    loopClosureFrequency:       1.0
+    surroundingKeyframeSize:    30
+    historyKeyframeSearchRadius:   25.0
+    historyKeyframeSearchTimeDiff: 35.0
+    historyKeyframeSearchNum:      25
+    historyKeyframeFitnessScore:   0.3
+
+    # ==================== VISUALIZATION ====================
+    globalMapVisualizationSearchRadius:  1000.0
+    globalMapVisualizationPoseDensity:   10.0
+    globalMapVisualizationLeafSize:      0.5
