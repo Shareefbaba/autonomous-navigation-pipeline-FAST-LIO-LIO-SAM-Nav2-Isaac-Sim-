@@ -96,17 +96,17 @@ This uses FAST-LIO’s /odom as the robot’s localization source.
 Step 5 — Send Navigation Goal
 Open RViz2:
 rviz2
-Use Nav2 Goal tool → click anywhere on the mapless environment → robot moves using:
+Use the Nav2 Goal tool → click anywhere on the mapless environment → robot moves using:
 FAST-LIO odometry
 2D LiDAR costmap
 Local planners (RPP / DWB / TEB)
 
 🟩 2️⃣ LIO-SAM + Nav2 (Mapless Navigation)
 Step 1 — Start Isaac Sim
-Same as previous mode.
+Same as the previous mode.
 
 Step 2 — Run the IMU Upsampler
-LIO-SAM requires high-frequency IMU.
+LIO-SAM requires a high-frequency IMU.
 
 ros2 run pointcloud_ring_converter imu_upsampling.py
 
@@ -154,6 +154,11 @@ Launching and integrating SLAM + Navigation stacks
 📫 Contact
 If you're working on ROS2, SLAM, LiDAR processing, or Isaac Sim, feel free to reach out!
 Happy to collaborate on robotics and autonomous systems.
+I'm looking for job opportunities. Please refer me.
+
+LinkedIn:- www.linkedin.com/in/shareefbaba
+Gmail:- shareefbaba1404@gmail.com
+
 
 
 
